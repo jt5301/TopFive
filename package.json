@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "heroku-postbuild": "cd client && yarn && yarn run build",
+    "heroku-postbuild": "cd client && npm && npm run build",
     "debug": "nodemon  --inspect ./bin/www",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
   },
