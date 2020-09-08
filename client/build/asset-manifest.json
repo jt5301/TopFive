@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Shoppies/static/css/main.2cce8147.chunk.css",
+    "main.js": "/Shoppies/static/js/main.f7a65b58.chunk.js",
+    "main.js.map": "/Shoppies/static/js/main.f7a65b58.chunk.js.map",
+    "runtime~main.js": "/Shoppies/static/js/runtime~main.0d2f99f4.js",
+    "runtime~main.js.map": "/Shoppies/static/js/runtime~main.0d2f99f4.js.map",
+    "static/js/2.c3923f60.chunk.js": "/Shoppies/static/js/2.c3923f60.chunk.js",
+    "static/js/2.c3923f60.chunk.js.map": "/Shoppies/static/js/2.c3923f60.chunk.js.map",
+    "index.html": "/Shoppies/index.html",
+    "precache-manifest.db63a59caef9e8e365375a2fc3c12cf0.js": "/Shoppies/precache-manifest.db63a59caef9e8e365375a2fc3c12cf0.js",
+    "service-worker.js": "/Shoppies/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/Shoppies/static/css/main.2cce8147.chunk.css.map"
+  }
+}
