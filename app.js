@@ -1,9 +1,9 @@
 const createError = require("http-errors");
 const express = require("express");
-const { join } = require("path");
 const path = require('path');
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const PORT = process.env.PORT || 8080;
 
 const indexRouter = require("./routes/movies");
 
@@ -16,9 +16,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'))
-}
+app.use(express.static('client/build'))
 
 app.use("/movies", indexRouter);
 
@@ -26,7 +24,9 @@ app.use("/movies", indexRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'client/build'))
+})
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -37,5 +37,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.json({ error: err });
 });
+
+app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 
 module.exports = app;
