@@ -1,43 +1,20 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require('path');
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const PORT = process.env.PORT || 8080;
-
+const express = require('express');
+const morgan = require('morgan');
 const indexRouter = require("./routes/movies");
 
-const { json, urlencoded } = express;
+const app = express();
+const PORT = process.env.PORT || 3001; // Step 1
 
-var app = express();
-
-app.use(logger("dev"));
-app.use(json());
-app.use(urlencoded({ extended: false }));
-app.use(cookieParser());
-
-app.use(express.static('client/build'))
-
+// Data parsing
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use("/movies", indexRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'client/build'))
-})
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+app.use(express.static(__dirname + '/client/build/'));
 
-  // render the error page
-  res.status(err.status || 500);
-  res.json({ error: err });
-});
+
+
+// HTTP request logger
+app.use(morgan('tiny'));
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
-
-module.exports = app;
