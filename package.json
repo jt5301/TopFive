@@ -1,0 +1,29 @@
+{
+  "homepage": "https://jt5301.github.io/Shoppies/",
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "dev": "nodemon ./bin/www",
+    "debug": "nodemon  --inspect ./bin/www",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "gh-pages": "^3.1.0",
+    "mocha": "^6.2.0"
+  }
+}
