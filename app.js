@@ -15,6 +15,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.use("/movies", indexRouter);
 
