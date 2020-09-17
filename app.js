@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const indexRouter = require("./routes/movies");
+const mongoose = require('mongoose')
 
 const app = express();
 const PORT = process.env.PORT || 3001; // Step 1
@@ -12,7 +13,9 @@ app.use("/movies", indexRouter);
 
 app.use(express.static(__dirname + '/client/build/'));
 
-
+mongoose.connect(process.env.mongodbConnect, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+  console.log('connected to db')
+})
 
 // HTTP request logger
 app.use(morgan('tiny'));
