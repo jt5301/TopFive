@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const indexRouter = require("./routes/movies");
 const mongoose = require('mongoose')
-
+const bodyParser = require('body-parser')
 const app = express();
 const PORT = process.env.PORT || 3001; // Step 1
 
@@ -10,10 +10,11 @@ const PORT = process.env.PORT || 3001; // Step 1
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/movies", indexRouter);
+app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/build/'));
 
-mongoose.connect(process.env.mongodbConnect, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect('mongodb+srv://johnt:A7nmeD2VNJUegOob@cluster0.eijcs.mongodb.net/shoppies?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   console.log('connected to db')
 })
 
