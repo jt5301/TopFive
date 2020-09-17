@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/build/'));
 
-mongoose.connect('mongodb+srv://johnt:A7nmeD2VNJUegOob@cluster0.eijcs.mongodb.net/shoppies?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.mongodbConnect, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   console.log('connected to db')
 })
 
