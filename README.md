@@ -1,2 +1,2 @@
 # EXPRESS-STARTER
-# jt_shoppies
+Deployed version of Shoppies
