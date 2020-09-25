@@ -37,7 +37,7 @@ const NavbarSearch = () => {
       </Typography>
         <Typography variant="h6" color="inherit" noWrap>
           <form onSubmit={(event) => { submitSearch(event) }}>
-            <TextField InputProps={{ classes, disableUnderline: true }}
+            <TextField InputProps={{ disableUnderline: true }}
               id="standard-full-width"
               // style={{ margin: 8 }}
               placeholder="Title Keywords"
