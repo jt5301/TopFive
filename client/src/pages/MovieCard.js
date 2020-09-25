@@ -60,7 +60,7 @@ export const MovieCard = (props) => {
   }
   const addRemoveNominee = () => {
     if (props.buttonMsg === 'Remove') {
-      searchParam.setNominee({ ...searchParam.nominees, [movie.imdbID]: undefined })
+      searchParam.setNominee({ ...searchParam.nominees, [movie.imdbID]: "" })
     }
     if (searchParam.atLimit) {
       setLimitWarning(true)
@@ -78,7 +78,7 @@ export const MovieCard = (props) => {
       setNominated(false)
     }
     localStorage.setItem('storedNominees', JSON.stringify(searchParam.nominees))
-  }, [searchParam.nominees])
+  }, [searchParam.nominees, movie.imdbID])
   return (
     <Grid item key={movie.imdbID} xs={3}>
       <Card className={classes.card}>

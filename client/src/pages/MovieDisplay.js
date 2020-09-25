@@ -34,7 +34,7 @@ const MovieDisplay = () => {
       }
       else searchParam.setLimit(false)
     }
-  }, [searchParam.nominees])
+  }, [searchParam])//supposed to be searchParam.nominees
 
   const closeSnackbar = () => {
     setNomineeComplete(false)
