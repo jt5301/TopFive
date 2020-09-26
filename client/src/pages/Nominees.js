@@ -21,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-evenly',
   },
+  saveButton: {
+    height: '20%',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  }
 }))
 
 const Nominees = () => {
@@ -28,14 +36,27 @@ const Nominees = () => {
   const classes = useStyles();
   const [instructions, setInstructions] = useState(true)
   const [saveButton, triggerSaveButton] = useState(true)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [name, setName] = useState('')
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('storedNominees')) || ""
     movieParam.setNominee(movies)
     const stringMovies = JSON.stringify(movies)
     localStorage.setItem('storedNominees', stringMovies)
   }, [])
+  const handleOpen = () => {
+    setOpenDialog(true)
+  }
+  const handleClose = () => {
+    setOpenDialog(false)
+  }
+  const saveList = () => {
+    console.log(name)
+
+  }
   useEffect(() => {
     let nomineeCount = 0
+    //checks for number of nominees to trigger save button
     let noNominees = true
     Object.keys(movieParam.nominees).forEach((current) => {
       if (movieParam.nominees[current]) {
@@ -51,29 +72,62 @@ const Nominees = () => {
   }, [movieParam.nominees])
 
   return (
-    <Container
-      className={classes.cardGrid} maxwidth='xl'
-      classes={{
-        root: classes.root
-      }} maxWidth="sm">
-      {instructions ?
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-          Your nominee list is empty! Use the search bar above to find and add up to five films that you think should be up for nomination. They'll be displayed here.
+    <Container className={classes.root}>
+      <Container
+        className={classes.cardGrid} maxwidth='xl'
+        classes={{
+          root: classes.root
+        }} maxWidth="sm">
+        {instructions ?
+          <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            Your nominee list is empty! Use the search bar above to find and add up to five films that you think should be up for nomination. They'll be displayed here.
           </Typography>
-        :
-        Object.keys(movieParam.nominees).map(
-          (current) => {
-            if (movieParam.nominees[current]) {
-              return (<MovieCard key={current} movie={movieParam.nominees[current]}
-                inNominee={true}
-                buttonMsg={'Remove'} />)
-            }
-            else return ''
-          })}
+          :
+          Object.keys(movieParam.nominees).map(
+            (current) => {
+              if (movieParam.nominees[current]) {
+                return (<MovieCard key={current} movie={movieParam.nominees[current]}
+                  inNominee={true}
+                  buttonMsg={'Remove'} />)
+              }
+              else return ''
+            })}
+      </Container>
       {saveButton ?
-        <Button variant="outlined" color="primary" >
-          Open form dialog
-      </Button> : ""}
+        <div className={classes.buttonContainer}>
+          <Button className={classes.saveButton} variant="contained" color="primary" onClick={handleOpen} >
+            Save your list
+          </Button>
+          <Dialog
+            open={openDialog}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogContent>
+              <DialogContentText>
+                Enter your first and last name to share your list with others
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Full Name"
+                type="name"
+                fullWidth
+                onChange={(event) => { setName(event.target.value) }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={saveList} color="primary">
+                Save
+          </Button>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+          </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+        : ""}
     </Container>
   )
 }
