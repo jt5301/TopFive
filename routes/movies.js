@@ -14,7 +14,10 @@ router.get("/search/:keywords", async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const list = new Lists({
     user: req.body.user,
-    list: ["2", "4"]
+    list: {
+      test: '1',
+      test2: '2'
+    }
   })
   try {
     const savePost = await list.save()

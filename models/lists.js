@@ -4,9 +4,9 @@ const ListSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  list: [{
-    type: String
-  }]
+  list: {
+    type: Object
+  }
 })
 
 module.exports = mongoose.model('Lists', ListSchema)

@@ -14,7 +14,6 @@ app.use("/movies", indexRouter);
 app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/build/'));
-console.log('what is this', process.env.mongodbConnect)
 mongoose.connect(process.env.mongodbConnect, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   console.log('connected to db')
 })

@@ -11,6 +11,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -38,6 +40,7 @@ const Nominees = () => {
   const [saveButton, triggerSaveButton] = useState(true)
   const [openDialog, setOpenDialog] = useState(false)
   const [name, setName] = useState('')
+  const [saveMessage, setSaveMessage] = useState(false)
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('storedNominees')) || ""
     movieParam.setNominee(movies)
@@ -50,9 +53,16 @@ const Nominees = () => {
   const handleClose = () => {
     setOpenDialog(false)
   }
-  const saveList = () => {
-    console.log(name)
-
+  const saveList = async () => {
+    const saveNominees = {}
+    for (let movie in movieParam.nominees) {
+      if (movieParam.nominees[movie]) saveNominees[movie] = movieParam.nominees[movie]
+    }
+    try {
+      const res = await axios.post('/movies', { user: 'john' })
+    } catch (error) {
+      console.log(error)
+    }
   }
   useEffect(() => {
     let nomineeCount = 0
@@ -104,6 +114,7 @@ const Nominees = () => {
             aria-labelledby="form-dialog-title"
           >
             <DialogContent>
+              <DialogTitle>Save Your Nominee List</DialogTitle>
               <DialogContentText>
                 Enter your first and last name to share your list with others
               </DialogContentText>
