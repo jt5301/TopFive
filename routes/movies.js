@@ -14,15 +14,24 @@ router.get("/search/:keywords", async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const list = new Lists({
     user: req.body.user,
-    list: {
-      test: '1',
-      test2: '2'
-    }
+    list: req.body.list
   })
   try {
     const savePost = await list.save()
     console.log('save', savePost)
     res.status(201).json({ savePost })
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/list/:id', async (req, res, next) => {
+  const listId = req.body.id
+  try {
+    const post = await Lists.findOne({
+      user: listId//for testing use "john's list-LwS5Bm"
+    })
+    res.status(200).json(post)
   } catch (error) {
     console.log(error)
   }

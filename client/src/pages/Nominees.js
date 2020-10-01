@@ -13,6 +13,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 
+import ShortUniqueId from 'short-unique-id';
+const uid = new ShortUniqueId();
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -39,7 +42,7 @@ const Nominees = () => {
   const [instructions, setInstructions] = useState(true)
   const [saveButton, triggerSaveButton] = useState(true)
   const [openDialog, setOpenDialog] = useState(false)
-  const [name, setName] = useState('')
+  const [listName, setListName] = useState('')
   const [saveMessage, setSaveMessage] = useState(false)
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('storedNominees')) || ""
@@ -58,8 +61,10 @@ const Nominees = () => {
     for (let movie in movieParam.nominees) {
       if (movieParam.nominees[movie]) saveNominees[movie] = movieParam.nominees[movie]
     }
+
+    console.log(uid())
     try {
-      const res = await axios.post('/movies', { user: 'john' })
+      const res = await axios.post('/movies', { user: listName + '-' + uid(), list: saveNominees })
     } catch (error) {
       console.log(error)
     }
@@ -125,7 +130,7 @@ const Nominees = () => {
                 label="Full Name"
                 type="name"
                 fullWidth
-                onChange={(event) => { setName(event.target.value) }}
+                onChange={(event) => { setListName(event.target.value) }}
               />
             </DialogContent>
             <DialogActions>
