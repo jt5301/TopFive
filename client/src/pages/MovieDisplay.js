@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { SearchContext } from './SearchContext'
+import { SearchContext } from '../hooks/SearchContext'
 import axios from 'axios'
 import { MovieCard } from './MovieCard.js'
 import Snackbar from '@material-ui/core/Snackbar';

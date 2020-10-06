@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
-import { SearchContext } from './SearchContext'
+import { SearchContext } from '../hooks/SearchContext'
 import { makeStyles, } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
