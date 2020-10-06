@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar'
 import axios from 'axios'
 
 import ShortUniqueId from 'short-unique-id';
@@ -43,7 +44,8 @@ const Nominees = () => {
   const [saveButton, triggerSaveButton] = useState(true)
   const [openDialog, setOpenDialog] = useState(false)
   const [listName, setListName] = useState('')
-  const [saveMessage, setSaveMessage] = useState(false)
+  const [saveMessage, setSaveMessage] = useState('')
+
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('storedNominees')) || ""
     movieParam.setNominee(movies)
@@ -62,9 +64,11 @@ const Nominees = () => {
       if (movieParam.nominees[movie]) saveNominees[movie] = movieParam.nominees[movie]
     }
 
-    console.log(uid())
     try {
       const res = await axios.post('/movies', { user: listName + '-' + uid(), list: saveNominees })
+      setSaveMessage(`Saved! Enter ${res.data} in the bar above to view at any time.`)
+
+      handleClose()
     } catch (error) {
       console.log(error)
     }

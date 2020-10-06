@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
   try {
     const savePost = await list.save()
     console.log('save', savePost)
-    res.status(201).json({ savePost })
+    res.status(200).json({ savePost })
   } catch (error) {
     console.log(error)
   }
