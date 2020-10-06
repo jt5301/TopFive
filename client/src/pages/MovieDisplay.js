@@ -4,8 +4,9 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchContext } from '../hooks/SearchContext'
 import axios from 'axios'
-import { MovieCard } from './MovieCard.js'
+import { MovieCard } from '../components/MovieCard.js'
 import Snackbar from '@material-ui/core/Snackbar';
+import { CustomSnackbar } from '../components/Snackbar.js'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -33,6 +34,7 @@ const MovieDisplay = () => {
         break
       }
       else searchParam.setLimit(false)
+      setNomineeComplete(false)
     }
   }, [searchParam])//supposed to be searchParam.nominees
 
@@ -75,12 +77,13 @@ const MovieDisplay = () => {
           return (<MovieCard key={current.imdbID} movie={current} buttonMsg={'Add Movie'} />)
         })}
       </Grid>
-      <Snackbar
+      {/* <Snackbar
         open={nomineeComplete}
         autoHideDuration={4000}
         onClose={closeSnackbar}
         message="Nomination Complete! Feel free to change your choices by removing a nominee to add a different one."
-      ></Snackbar>
+      ></Snackbar> */}
+      <CustomSnackbar message={"Nomination Complete! Feel free to change your choices by removing a nominee to add a different one."} trigger={nomineeComplete} />
     </Container>
   )
 }

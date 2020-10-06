@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchContext } from '../hooks/SearchContext'
-import { MovieCard } from './MovieCard.js'
+import { MovieCard } from '../components/MovieCard.js'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
