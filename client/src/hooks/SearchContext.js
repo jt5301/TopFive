@@ -5,7 +5,15 @@ export const SearchContext = createContext()
 export const SearchProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [nominees, setNominee] = useState({})
-  const [atLimit, setLimit] = useState(false)
+
+  function nomineeCount() {
+    let limitFive = 0
+    let nomineeKeys = Object.keys(nominees)
+    for (let key of nomineeKeys) {
+      if (nominees[key]) limitFive += 1
+    }
+    return limitFive
+  }
   return (
     <SearchContext.Provider
       value={{
@@ -13,8 +21,8 @@ export const SearchProvider = ({ children }) => {
         setSearchTerm,
         nominees,
         setNominee,
-        atLimit,
-        setLimit
+        nomineeCount,
+
       }}>
       {children}
     </SearchContext.Provider>

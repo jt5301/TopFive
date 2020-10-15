@@ -34,7 +34,7 @@ const NavbarSearch = () => {
     <AppBar position="relative">
       <Toolbar className={classes.navContainer} >
         <Typography className={classes.logo} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-          The Shoppies
+          TOP FIVE | TOP FIVE | TOP FIVE
       </Typography>
         <Typography variant="h6" color="inherit" noWrap>
           <form onSubmit={(event) => { submitSearch(event) }}>

@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SearchContext } from '../hooks/SearchContext'
 import axios from 'axios'
 import { MovieCard } from '../components/MovieCard.js'
-import Snackbar from '@material-ui/core/Snackbar';
 import { CustomSnackbar } from '../components/Snackbar.js'
 
 const useStyles = makeStyles((theme) => ({
@@ -20,27 +19,19 @@ const useStyles = makeStyles((theme) => ({
 const MovieDisplay = () => {
   const classes = useStyles();
   let searchParam = useContext(SearchContext)
+
   const [movies, setMovies] = useState([])
   const [nomineeComplete, setNomineeComplete] = useState(false)
 
   useEffect(() => {
-    let limitFive = 0
-    let nomineeKeys = Object.keys(searchParam.nominees)
-    for (let key of nomineeKeys) {
-      if (searchParam.nominees[key]) limitFive += 1
-      if (limitFive === 5) {
-        searchParam.setLimit(true)
-        setNomineeComplete(true)
-        break
-      }
-      else searchParam.setLimit(false)
+    if (searchParam.nomineeCount() === 5) {
+      setNomineeComplete(true)
+    }
+    else {
       setNomineeComplete(false)
+
     }
   }, [searchParam])//supposed to be searchParam.nominees
-
-  const closeSnackbar = () => {
-    setNomineeComplete(false)
-  }
 
   useEffect(() => {
     const defaultMovies = async () => {
@@ -77,12 +68,6 @@ const MovieDisplay = () => {
           return (<MovieCard key={current.imdbID} movie={current} buttonMsg={'Add Movie'} />)
         })}
       </Grid>
-      {/* <Snackbar
-        open={nomineeComplete}
-        autoHideDuration={4000}
-        onClose={closeSnackbar}
-        message="Nomination Complete! Feel free to change your choices by removing a nominee to add a different one."
-      ></Snackbar> */}
       <CustomSnackbar message={"Nomination Complete! Feel free to change your choices by removing a nominee to add a different one."} trigger={nomineeComplete} />
     </Container>
   )

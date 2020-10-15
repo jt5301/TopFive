@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { SearchContext } from '../hooks/SearchContext'
-import Snackbar from '@material-ui/core/Snackbar'
+import { CustomSnackbar } from '../components/Snackbar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,21 +55,21 @@ export const MovieCard = (props) => {
   const [nominated, setNominated] = useState(false)
   let searchParam = useContext(SearchContext)
   const [limitWarning, setLimitWarning] = useState(false)
-  const closeSnackbar = () => {
-    setLimitWarning(false)
-  }
+
   const addRemoveNominee = () => {
     if (props.buttonMsg === 'Remove') {
       searchParam.setNominee({ ...searchParam.nominees, [movie.imdbID]: "" })
-    }
-    if (searchParam.atLimit) {
-      setLimitWarning(true)
-      return
+      setLimitWarning(false)
     }
     if (props.buttonMsg === 'Add Movie') {
+      if (searchParam.nomineeCount() === 5) {
+        setLimitWarning(true)
+        return
+      }
       searchParam.setNominee({ ...searchParam.nominees, [movie.imdbID]: movie })
     }
   }
+
   useEffect(() => {
     if (searchParam.nominees[movie.imdbID]) {
       setNominated(true)
@@ -127,12 +127,10 @@ export const MovieCard = (props) => {
             </div>
         }
       </Card>
-      <Snackbar
-        open={limitWarning}
-        autoHideDuration={4000}
-        onClose={closeSnackbar}
-        message="You can only nominate five. Remove a nominated movie first before adding another"
-      ></Snackbar>
+      <CustomSnackbar
+        message={"You can only nominate five. Remove a nominated movie first before adding another"}
+        trigger={limitWarning}
+      />
     </Grid >
   )
 }
