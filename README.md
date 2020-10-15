@@ -1,2 +1,2 @@
 # EXPRESS-STARTER
-Deployed version of Shoppies
+Pick your top five movies, share your list with others.
